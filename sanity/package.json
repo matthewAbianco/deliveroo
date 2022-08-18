@@ -1,10 +1,10 @@
 {
-  "name": "deliveroo",
+  "name": "deliveroo-clone",
   "private": true,
   "version": "1.0.0",
   "description": "",
   "main": "package.json",
-  "author": "matthew bianco <matthewbianco@protonmail.com>",
+  "author": "Matthew Bianco <matthewbianco@protonmail.com>",
   "license": "UNLICENSED",
   "scripts": {
     "start": "sanity start",
@@ -27,5 +27,9 @@
     "react-dom": "^17.0",
     "styled-components": "^5.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matthewAbianco/deliveroo.git"
+  }
 }
