@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native"
 import { UserIcon, ChevronDownIcon, SearchIcon, AdjustmentsIcon, } from 'react-native-heroicons/outline'
 import Categories from '../components/Categories'
 import FeaturedRow from '../components/FeaturedRow'
-import sanityClient from '../sanity'
+// import sanityClient from '../../sanity'
 
 const HomeScreen = () => {
 
@@ -17,9 +17,9 @@ const HomeScreen = () => {
         })
     }, [])
 
-    useEffect(() => {
-        sanityClient.fetch
-    }, [])
+    // useEffect(() => {
+    //     sanityClient.fetch
+    // }, [])
 
     return (
         <SafeAreaView className="bg-white pt-5" >
