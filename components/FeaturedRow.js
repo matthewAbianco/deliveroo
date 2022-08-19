@@ -1,9 +1,37 @@
 import { View, Text, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ArrowRightIcon } from 'react-native-heroicons/outline'
 import ResturauntCard from './ResturauntCard'
+import client from '../sanity'
 
-const FeaturedRow = ({ title, description, id }) => {
+const FeaturedRow = ({ id, title, description }) => {
+    const [restaurants, setResturants] = useState([])
+
+
+    useEffect(() => {
+        client.fetch(`
+        *[_type == "featured" && _id == id ]{
+            ...,
+           restaurants[]->{
+             ...,
+             dishes[]->,
+             type-> {
+                 name
+             }
+           }, 
+         }[0]
+        `,
+            { id: '' })
+            .then((data) => {
+                console.log(data)
+                setResturants(data)
+            }).catch((err) => {
+                console.log(err)
+            })
+    }, [])
+
+    // console.log(restaurants)
+
     return (
         <View>
             <View className="mt-4 flex-row items-center justify-between px-4" >
@@ -21,46 +49,23 @@ const FeaturedRow = ({ title, description, id }) => {
                 className="pt-4"
             >
 
-                <ResturauntCard
-                    id={123}
-                    imgUrl="https://links.papareact.com/gn7"
-                    title="Rony's"
-                    rating={3.5}
-                    genre='Italian'
-                    address="56 Townstead Dr"
-                    short_description='Like other resturants, but better.'
-                    dishes={[]}
-                    long={132}
-                    lat={3}
-                />
-
-
-                <ResturauntCard
-                    id={123}
-                    imgUrl="https://links.papareact.com/gn7"
-                    title="Rony's"
-                    rating={3.5}
-                    genre='Italian'
-                    address="56 Townstead Dr"
-                    short_description='Like other resturants, but better.'
-                    dishes={[]}
-                    long={132}
-                    lat={3}
-                />
-
-
-                <ResturauntCard
-                    id={123}
-                    imgUrl="https://links.papareact.com/gn7"
-                    title="Rony's"
-                    rating={3.5}
-                    genre='Italian'
-                    address="56 Townstead Dr"
-                    short_description='Like other resturants, but better.'
-                    dishes={[]}
-                    long={132}
-                    lat={3}
-                />
+                {
+                    restaurants?.map((restaurant => {
+                        <ResturauntCard
+                            key={restaurant._id}
+                            id={restaurant._id}
+                            imgUrl={restaurant.image}
+                            address={restaurant.address}
+                            title={restaurant.name}
+                            dishes={restaurant.dishes}
+                            rating={restaurant.rating}
+                            genre={restaurant.type?.name}
+                            short_description={restaurant.short_description}
+                            long={restaurant.long}
+                            lat={restaurant.lat}
+                        />
+                    }))
+                }
 
             </ScrollView>
         </View>
@@ -68,3 +73,4 @@ const FeaturedRow = ({ title, description, id }) => {
 }
 
 export default FeaturedRow
+
