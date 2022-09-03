@@ -6,15 +6,11 @@ import { ArrowLeftIcon, ChevronRightIcon, StarIcon } from 'react-native-heroicon
 import { MapPinIcon, QuestionMarkCircleIcon } from 'react-native-heroicons/solid'
 import DishRow from '../components/DishRow'
 
+
 const RestaurantScreen = () => {
 
     const navigation = useNavigation();
 
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerShown: false,
-        })
-    }, [])
 
     const {
         params: {
@@ -31,6 +27,12 @@ const RestaurantScreen = () => {
         }
     } = useRoute()
 
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerShown: false,
+        })
+    }, [])
+
     return (
         <ScrollView>
             <View className='relative' >
@@ -41,7 +43,9 @@ const RestaurantScreen = () => {
                     className="w-full h-56 bg-gray-300 p-4"
                 />
 
-                <TouchableOpacity onPress={navigation.goBack} className='absolute top-14 left-5 p-2  bg-gray-100 rounded-full ' >
+                <TouchableOpacity
+                    onPress={navigation.goBack}
+                    className='absolute top-14 left-5 p-2  bg-gray-100 rounded-full ' >
                     <ArrowLeftIcon size={20} color="#00CCBB" />
                 </TouchableOpacity>
             </View>
